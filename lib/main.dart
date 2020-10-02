@@ -8,6 +8,9 @@ class Quizzler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        fontFamily: 'Poppins',
+      ),
       home: Scaffold(
         backgroundColor: Colors.grey.shade900,
         body: SafeArea(
@@ -34,6 +37,8 @@ class _QuizPageState extends State<QuizPage> {
     'A slug\'s blood is green.'
   ];
 
+  int progressIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -42,10 +47,10 @@ class _QuizPageState extends State<QuizPage> {
         Expanded(
           flex: 5,
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(16.0),
             child: Center(
               child: Text(
-                'This is where the question will appear',
+                questions[progressIndex],
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 24.0,
@@ -65,17 +70,21 @@ class _QuizPageState extends State<QuizPage> {
                 'True',
                 style: TextStyle(
                   fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
               ),
-              onPressed: () => setState(
-                () => scoreKeeper.add(
-                  Icon(
-                    Icons.check,
-                    color: Colors.green,
-                  ),
-                ),
-              ),
+              onPressed: () {
+                setState(() {
+                  progressIndex++;
+                  scoreKeeper.add(
+                    Icon(
+                      Icons.check,
+                      color: Colors.green,
+                    ),
+                  );
+                });
+              },
             ),
           ),
         ),
@@ -89,17 +98,21 @@ class _QuizPageState extends State<QuizPage> {
                 'False',
                 style: TextStyle(
                   fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
               ),
-              onPressed: () => setState(
-                () => scoreKeeper.add(
-                  Icon(
-                    Icons.close,
-                    color: Colors.red,
-                  ),
-                ),
-              ),
+              onPressed: () {
+                setState(() {
+                  progressIndex++;
+                  scoreKeeper.add(
+                    Icon(
+                      Icons.close,
+                      color: Colors.red,
+                    ),
+                  );
+                });
+              },
             ),
           ),
         ),
