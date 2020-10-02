@@ -27,6 +27,13 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  List<Widget> scoreKeeper = [];
+  List<String> questions = [
+    'You can lead a cow down stairs but not up stairs.',
+    'Approximatively one quarter of human bones are in the feet.',
+    'A slug\'s blood is green.'
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -61,7 +68,14 @@ class _QuizPageState extends State<QuizPage> {
                   color: Colors.white,
                 ),
               ),
-              onPressed: () {},
+              onPressed: () => setState(
+                () => scoreKeeper.add(
+                  Icon(
+                    Icons.check,
+                    color: Colors.green,
+                  ),
+                ),
+              ),
             ),
           ),
         ),
@@ -78,8 +92,21 @@ class _QuizPageState extends State<QuizPage> {
                   color: Colors.white,
                 ),
               ),
-              onPressed: () {},
+              onPressed: () => setState(
+                () => scoreKeeper.add(
+                  Icon(
+                    Icons.close,
+                    color: Colors.red,
+                  ),
+                ),
+              ),
             ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          child: Row(
+            children: scoreKeeper,
           ),
         ),
       ],
