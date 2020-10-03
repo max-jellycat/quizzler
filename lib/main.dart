@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'question.dart';
+import 'quiz.dart';
+
+Quiz quiz = Quiz();
 
 void main() {
   runApp(Quizzler());
@@ -32,13 +34,6 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Widget> scoreKeeper = [];
-  List<Question> questions = [
-    Question(q: 'You can lead a cow down stairs but not up stairs.', a: false),
-    Question(
-        q: 'Approximatively one quarter of human bones are in the feet.',
-        a: true),
-    Question(q: 'A slug\'s blood is green.', a: true)
-  ];
 
   int progressIndex = 0;
 
@@ -71,7 +66,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: const EdgeInsets.all(16.0),
             child: Center(
               child: Text(
-                questions[progressIndex].text,
+                quiz.getQuestionText(progressIndex),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 24.0,
@@ -97,7 +92,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 setState(() {
-                  addScore(questions[progressIndex].answer == true);
+                  addScore(quiz.getCorrectAnswer(progressIndex) == true);
                   progressIndex++;
                 });
               },
@@ -120,7 +115,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 setState(() {
-                  addScore(questions[progressIndex].answer == false);
+                  addScore(quiz.getCorrectAnswer(progressIndex) == false);
                   progressIndex++;
                 });
               },
@@ -129,8 +124,11 @@ class _QuizPageState extends State<QuizPage> {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-          child: Row(
-            children: scoreKeeper,
+          child: Container(
+            height: 20.0,
+            child: Row(
+              children: scoreKeeper,
+            ),
           ),
         ),
       ],
